@@ -32,4 +32,4 @@ db.run("""
     );
 """)
 
-print("Tables created successfully")
+print("Database and Tables created successfully")
