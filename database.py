@@ -31,5 +31,3 @@ db.run("""
         Income_Date DATE NOT NULL 
     );
 """)
-
-print("Database and Tables created successfully")
