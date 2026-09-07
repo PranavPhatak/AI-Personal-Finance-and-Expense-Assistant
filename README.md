@@ -88,24 +88,40 @@ The agent generates and executes SQL internally, but users only ever see clean, 
 ## Architecture
 
 ```
-User (Natural Language)
-        │
-        ▼
-   Streamlit UI
-        │
-        ▼
-  LangGraph Agent
-        │
-        ▼
-    ChatGroq LLM
-        │
-        ▼
- SQL Database Toolkit
-        │
-        ▼
-       SQLite
-   ┌─────────┬─────────┬────────┐
-   Expenses   Budgets    Income
+                         USER
+                           │
+                           ▼
+                    ┌─────────────┐
+                    │  Streamlit  │
+                    │     UI      │
+                    └──────┬──────┘
+                           │
+                           ▼
+                ┌─────────────────────┐
+                │    LangGraph Agent  │
+                │                     │
+                │    create_agent()   │
+                └──────────┬──────────┘
+                           │
+              ┌────────────┼────────────┐
+              │            │            │
+              ▼            ▼            ▼
+         ChatGroq      SQL Tools    Checkpointer
+           LLM       SQLDatabase     InMemorySaver
+              │        Toolkit
+              │            │
+              │            ▼
+              │       SQLite Database
+              │            │
+              │     ┌──────┼──────┐
+              │     ▼      ▼      ▼
+              │  Expenses Budgets Income
+              │
+              ▼
+        Final AI Response
+              │
+              ▼
+            USER
 ```
 
 ### Request Flow
